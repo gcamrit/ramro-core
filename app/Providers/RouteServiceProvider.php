@@ -4,8 +4,6 @@ namespace Ramro\Providers;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Route\RouteCollection;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 
 class RouteServiceProvider extends AbstractServiceProvider
 {
@@ -28,10 +26,6 @@ class RouteServiceProvider extends AbstractServiceProvider
 
         $route = $this->container->get('route');
 
-        $route->map('GET', '/', function (ServerRequestInterface $request, ResponseInterface $response) {
-            $response->getBody()->write('<h1>Hello, World!</h1>');
-
-            return $response;
-        });
+        $route->map('GET', '/', new \Ramro\Actions\HomePageAction);
     }
 }
