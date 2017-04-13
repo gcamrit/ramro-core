@@ -4,6 +4,7 @@ namespace Ramro\Providers;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Route\RouteCollection;
+use Ramro\Middleware\SampleMiddleware;
 
 class RouteServiceProvider extends AbstractServiceProvider
 {
@@ -24,8 +25,13 @@ class RouteServiceProvider extends AbstractServiceProvider
             return new RouteCollection($this->container);
         });
 
+        /**
+         * var RouteCollection $route
+         */
         $route = $this->container->get('route');
 
-        $route->map('GET', '/', new \Ramro\Actions\HomePageAction);
+        $route->map('GET', '/', new \Ramro\Actions\HomePageAction)
+            ->middleware(new SampleMiddleware);
+
     }
 }
