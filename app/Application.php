@@ -2,11 +2,22 @@
 
 namespace Ramro;
 
+use League\Container\Container;
 use League\Container\ContainerAwareInterface;
 use League\Container\ContainerInterface;
+use League\Container\ReflectionContainer;
 
 class Application implements ContainerAwareInterface
 {
+    /**
+     * @var \League\Container\ContainerInterface
+     */
+    protected $container;
+
+    public function __construct()
+    {
+        $this->boot();
+    }
 
     /**
      * Set a container
@@ -15,7 +26,7 @@ class Application implements ContainerAwareInterface
      */
     public function setContainer(ContainerInterface $container)
     {
-        // TODO: Implement setContainer() method.
+        $this->container = $container;
     }
 
     /**
@@ -25,6 +36,27 @@ class Application implements ContainerAwareInterface
      */
     public function getContainer()
     {
-        // TODO: Implement getContainer() method.
+        if (isset($this->container)) {
+            return $this->container;
+        }
+
+        $container = new Container;
+        $container->delegate(new ReflectionContainer());
+        $this->setContainer($container);
+
+        return $container;
+    }
+
+    private function boot()
+    {
+        $this->getContainer();
+        $this->container->share('response', \Zend\Diactoros\Response::class);
+        $this->container->share('request', function () {
+            return \Zend\Diactoros\ServerRequestFactory::fromGlobals(
+                $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
+            );
+        });
+
+        $this->container->share('emitter', \Zend\Diactoros\Response\SapiEmitter::class);
     }
 }

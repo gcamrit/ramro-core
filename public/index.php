@@ -3,17 +3,11 @@
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-$container = new League\Container\Container;
 
-$container->share('response', Zend\Diactoros\Response::class);
-$container->share('request', function () {
-    return Zend\Diactoros\ServerRequestFactory::fromGlobals(
-        $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
-    );
-});
+require_once __DIR__.'/../vendor/autoload.php';
 
-$container->share('emitter', Zend\Diactoros\Response\SapiEmitter::class);
-
+$app = new \Ramro\Application;
+$container = $app->getContainer();
 $route = new League\Route\RouteCollection($container);
 
 $route->map('GET', '/', function (ServerRequestInterface $request, ResponseInterface $response) {
@@ -25,3 +19,5 @@ $route->map('GET', '/', function (ServerRequestInterface $request, ResponseInter
 $response = $route->dispatch($container->get('request'), $container->get('response'));
 
 $container->get('emitter')->emit($response);
+
+
