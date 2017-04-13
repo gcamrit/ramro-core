@@ -7,5 +7,8 @@
             "email": "music.demand01@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "league/container": "^2.4",
+        "league/route": "^3.0"
+    }
 }
