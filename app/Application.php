@@ -6,6 +6,11 @@ use League\Container\Container;
 use League\Container\ContainerAwareInterface;
 use League\Container\ContainerInterface;
 use League\Container\ReflectionContainer;
+use League\Route\RouteCollection;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Ramro\Providers\HttpMessageServiceProvider;
+use Zend\Diactoros\Response\EmitterInterface;
 
 class Application implements ContainerAwareInterface
 {
@@ -49,14 +54,28 @@ class Application implements ContainerAwareInterface
 
     private function boot()
     {
-        $this->getContainer();
-        $this->container->share('response', \Zend\Diactoros\Response::class);
-        $this->container->share('request', function () {
-            return \Zend\Diactoros\ServerRequestFactory::fromGlobals(
-                $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
-            );
-        });
+        $container = $this->getContainer();
+        $container->addServiceProvider(HttpMessageServiceProvider::class);
+    }
 
-        $this->container->share('emitter', \Zend\Diactoros\Response\SapiEmitter::class);
+    public function run()
+    {
+        try {
+            $route = new RouteCollection($this->container);
+
+            $route->map('GET', '/', function (ServerRequestInterface $request, ResponseInterface $response) {
+                $response->getBody()->write('<h1>Hello, World!</h1>');
+
+                return $response;
+            });
+
+            $response = $route->dispatch($this->container->get(ServerRequestInterface::class), $this->container->get(ResponseInterface::class));
+
+            return $this->container->get(EmitterInterface::class)->emit($response);
+
+        }catch (\Exception $exception) {
+            // register exception handler which returns PSR-7 Response
+            throw $exception;
+        }
     }
 }
