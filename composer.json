@@ -1,0 +1,11 @@
+{
+    "name": "amritgc/ramro",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Amrit G.C",
+            "email": "music.demand01@gmail.com"
+        }
+    ],
+    "require": {}
+}
