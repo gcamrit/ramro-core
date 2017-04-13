@@ -62,18 +62,19 @@ class Application implements ContainerAwareInterface
     {
         try {
             $route = new RouteCollection($this->container);
-
             $route->map('GET', '/', function (ServerRequestInterface $request, ResponseInterface $response) {
                 $response->getBody()->write('<h1>Hello, World!</h1>');
 
                 return $response;
             });
-
-            $response = $route->dispatch($this->container->get(ServerRequestInterface::class), $this->container->get(ResponseInterface::class));
+            $response = $route->dispatch(
+                $this->container->get(ServerRequestInterface::class),
+                $this->container->get(ResponseInterface::class)
+            );
 
             return $this->container->get(EmitterInterface::class)->emit($response);
 
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             // register exception handler which returns PSR-7 Response
             throw $exception;
         }

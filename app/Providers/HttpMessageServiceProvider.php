@@ -28,7 +28,7 @@ class HttpMessageServiceProvider extends AbstractServiceProvider
             );
         });
 
-        $this->container->share(EmitterInterface::class, function() {
+        $this->container->share(EmitterInterface::class, function () {
             return new SapiEmitter;
         });
     }
