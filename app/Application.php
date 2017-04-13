@@ -52,7 +52,7 @@ class Application implements ContainerAwareInterface
         return $container;
     }
 
-    private function boot()
+    protected function boot()
     {
         $container = $this->getContainer();
         $container->addServiceProvider(HttpMessageServiceProvider::class);
