@@ -10,6 +10,7 @@ use League\Route\RouteCollection;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ramro\Providers\HttpMessageServiceProvider;
+use Ramro\Providers\RouteServiceProvider;
 use Zend\Diactoros\Response\EmitterInterface;
 
 class Application implements ContainerAwareInterface
@@ -56,18 +57,13 @@ class Application implements ContainerAwareInterface
     {
         $container = $this->getContainer();
         $container->addServiceProvider(HttpMessageServiceProvider::class);
+        $container->addServiceProvider(RouteServiceProvider::class);
     }
 
     public function run()
     {
         try {
-            $route = new RouteCollection($this->container);
-            $route->map('GET', '/', function (ServerRequestInterface $request, ResponseInterface $response) {
-                $response->getBody()->write('<h1>Hello, World!</h1>');
-
-                return $response;
-            });
-            $response = $route->dispatch(
+            $response = $this->container->get('route')->dispatch(
                 $this->container->get(ServerRequestInterface::class),
                 $this->container->get(ResponseInterface::class)
             );
