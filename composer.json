@@ -1,5 +1,7 @@
 {
     "name": "amritgc/ramro-framework",
+    "description": "Ramro is a progressive php framework.",
+    "keywords":    ["framework", "micro-framework", "progressive-framework"],
     "license": "MIT",
     "authors": [
         {
@@ -16,5 +18,7 @@
         "psr-4": {
             "Ramro\\": "src"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
