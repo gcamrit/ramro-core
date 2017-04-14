@@ -23,6 +23,14 @@
             "Ramro\\": "src"
         }
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "v1.0.0"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }
