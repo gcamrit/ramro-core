@@ -7,6 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\EmitterInterface;
 use Zend\Diactoros\Response\SapiEmitter;
+use Zend\Diactoros\ServerRequestFactory;
 
 class HttpMessageServiceProvider extends AbstractServiceProvider
 {
@@ -23,7 +24,7 @@ class HttpMessageServiceProvider extends AbstractServiceProvider
         });
 
         $this->container->share(ServerRequestInterface::class, function () {
-            return \Zend\Diactoros\ServerRequestFactory::fromGlobals(
+            return ServerRequestFactory::fromGlobals(
                 $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
             );
         });
