@@ -1,7 +1,5 @@
 # Ramro
-[![Latest Version on Packagist][ico-version]][link-packagist]
-[![Software License][ico-license]](LICENSE.md)
-
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/fa974f46-3f2a-40e5-804c-bd39f9f30ae1/big.png)](https://insight.sensiolabs.com/projects/fa974f46-3f2a-40e5-804c-bd39f9f30ae1)
 
