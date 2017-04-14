@@ -1,5 +1,5 @@
 # Ramro
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gcamrit/ramro-framework/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gcamrit/ramro-framework/?branch=master)
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/647e029e-6885-41aa-a74b-0d09e6264fbd/big.png)](https://insight.sensiolabs.com/projects/647e029e-6885-41aa-a74b-0d09e6264fbd)
